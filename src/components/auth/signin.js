@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
 
 
 class Signin extends Component {
@@ -8,8 +10,8 @@ class Signin extends Component {
     return <input className="form-control" {...field.input} type="field.type" />
   }
 
-  handleFormSubmit = function() {
-
+  handleFormSubmit({email, password}) {
+    this.props.signinUser({email, password})
   }
 
   render() {
@@ -28,5 +30,9 @@ class Signin extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return { state }
+}
 
-export default reduxForm({form: "signin"})(Signin);
+
+export default connect(mapStateToProps, actions)(reduxForm({form: "signin"})(Signin));
